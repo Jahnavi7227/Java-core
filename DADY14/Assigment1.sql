@@ -124,11 +124,19 @@ from titles t left join publishers p on(t.pub_id=p.pub_id) left join titleauthor
 where ta.au_ord=1
 
 --10. Display City of publisher and maximum price & all titles.
-select * from publishers
+
 
 select city , price=(select max(price) from titles),title
 from publishers p right join titles t on(t.pub_id=p.pub_id)
 group by title,city,price
+select * from publishers
+select * from titles
+SELECT P.City AS PublisherCity, 
+       MAX(B.price) AS MaximumPrice, 
+       B.title AS BookTitle
+FROM Publishers AS P
+JOIN titles AS B ON P.pub_id = B.pub_id
+GROUP BY P.City, B.title;
 
 
 --11. Display titles written by any author in City (menlo park). 
@@ -180,7 +188,7 @@ HAVING count(title)>2
 
 --17. Delete rows from title author for author with first_name as dean.
 DELETE FROM titleauthor
-WHERE au_id IN (SELECT au_id FROM authors WHERE au_fname = 'Dean');
+WHERE au_id IN (SELECT au_id FROM authors WHERE au_fname = 'Burt');
 select * from authors
 select * from titleauthor
 select * from titles
